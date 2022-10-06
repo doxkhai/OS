@@ -1,0 +1,6 @@
+ 1097  mkdir 1913769
+ 1098  vim 1913769/example.txt
+ 1099  ls 1913769/
+ 1100  cat 1913769/example.txt
+ 1101  head -5 1913769/example.txt
+ 1102  tail -5 1913769/example.txt

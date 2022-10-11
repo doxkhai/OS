@@ -1,3 +1,12 @@
-1. 
-2.
-3.
+1. Lợi ích của makefile:
+	- Giúp tổ chức code dễ debug và dễ đọc hơn
+	- Sau mỗi lần sửa mã nguồn của 1 file, ta không cần phải re-compile toàn bộ chương trình nữa. Makefile sẽ tự động tìm và compile lại những file đã được thay đổi.
+	- Trong những dự án lớn, Makefile được sử dụng để giúp tổ chức project một cách hệ thống và hiệu quả hơn.
+	Ví dụ:
+	- Trong 1 chương trình với nhiều file c, sau mỗi lần ta sửa 1 file, thì ta phải compile lại file đó và tiếp tục compile all, thực hiện link các file object lại với nhau.
+	- Thì bây giờ với Makefile, ta chỉ cần chạy make all là nó có thể re-compile lại cả chương trình một cách tối ưu nhất, và ta không cần phải lo đến những thứ như dependencies của các file.
+
+2. Nếu các source code được đặt ở các thư mục khác nhau, thì khi ta viết Makefile, ta có thể viết đường dẫn tương đối của chúng, ví dụ: src/readline.c
+
+3. Output sẽ là "Parent: value = 5".
+Bởi vì sau khi ta gọi lệnh fork(), một process con sẽ được tạo ra như bản sao của process cha, với vùng nhớ riêng của nó, nên nó sẽ có riêng biến value của nó, nên dù có thay đổi giá trị biến value ở process con thì biến value của process cha vẫn giữ nguyên.

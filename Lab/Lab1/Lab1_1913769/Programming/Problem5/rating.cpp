@@ -1,6 +1,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <map>
+#include <cstring>
+#include <cstdio>
 #include "rating.h"
 
 #define STRSIZE 40

@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <sys/stat.h>
 #define SHM_KEY 0x123
-#define SNAME " /semname"
+#define SNAME "/semname"
 
 struct shared_data
 {

@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <map>
 #include "rating.h"
-
+#include <sys/wait.h>
+#include <cstdio>
 
 //? map<> dict structure
 /*

@@ -64,7 +64,6 @@ int main(int argc, char** argv) {
         perror("shmctl");
         return 1;
     }
-    sleep(10);
     //Remove the named semaphore
     if(sem_unlink(SNAME) < 0) perror("sem_unlink(3) failed");
     return 0;

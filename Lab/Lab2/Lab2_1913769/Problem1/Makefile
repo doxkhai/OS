@@ -2,4 +2,4 @@ all: main.c
 	gcc main.c -o main
 
 clear: 
-	rm -f main result.txt
+	rm -f main finaloutput.txt

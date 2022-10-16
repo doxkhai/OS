@@ -14,8 +14,8 @@
 #define SNAME "/semname"
 #define MAPSIZE 1682
 #define STRSIZE 40
-#define FILE1 "number1.txt"
-#define FILE2 "number2.txt"
+#define FILE1 "movie-100k_1.txt"
+#define FILE2 "movie-100k_2.txt"
 
 struct Ratings
 {
@@ -24,18 +24,24 @@ struct Ratings
     int count;
 };
 
-void getRating(const char *filename, struct Ratings *map, sem_t *sem)
-{
-}
-
 int main(int argc, char **argv)
 {
 
     int shmid;
     struct Ratings *map;
 
-    sem_t *sem = sem_open(SNAME, O_CREAT, 0644);
-    sem_init(sem, 0, 1);
+    sem_t *sem = sem_open(SNAME, O_CREAT, 0644,1);
+
+    if (sem == SEM_FAILED)
+    {
+        printf("Sem failed\n");
+        return -1;
+    }
+
+    if (sem_init(sem, 1, 1) != 0) {
+        printf("Sem init failed\n");
+        return -1;
+    }
 
     shmid = shmget(SHM_KEY, (MAPSIZE + 1) * sizeof(struct Ratings), 0644 | IPC_CREAT);
     if (shmid < 0)
@@ -47,13 +53,6 @@ int main(int argc, char **argv)
     {
         printf("Shared memory: %d\n", shmid);
     }
-
-    if (sem == SEM_FAILED)
-    {
-        printf("Sem failed\n");
-        return -1;
-    }
-
 
     pid_t child1 = fork();
     pid_t child2 = -2;
@@ -102,8 +101,9 @@ int main(int argc, char **argv)
                 token = strtok(NULL, " \t");
                 i++;
             }
-            sem_wait(sem);
-            printf("Reading:%s %d\n", filename, count++);
+            if (sem_wait(sem) < 0)
+                printf("sem_wait(3) failed\n");
+    
             if (map[arr[1] - 1].MovieID != arr[1])
             {
                 map[arr[1] - 1].MovieID = arr[1];
@@ -113,7 +113,8 @@ int main(int argc, char **argv)
 
             map[arr[1] - 1].count++;
             map[arr[1] - 1].ratings += arr[2];
-            sem_post(sem);
+            if(sem_post(sem) < 0)
+                printf("sem_post(3) failed\n");
             memset(str, 0, strlen(str));
         }
         fclose(fptr);
@@ -130,8 +131,8 @@ int main(int argc, char **argv)
         sem_close(sem);
         if (sem_unlink(SNAME) < 0)
             perror("sem_unlink(3) failed");
-        printf("sem closed\n");
-        FILE *rf = fopen("result.txt", "w+");
+
+        FILE *rf = fopen("finaloutput.txt", "w+");
 
         for (int i = 0; i < MAPSIZE; i++)
         {

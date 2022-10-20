@@ -14,6 +14,7 @@ pi_serial: pi_serial.o incircle.o
 	gcc pi_serial.o incircle.o -o pi_serial -lm
 
 all: pi_multi-thread pi_serial
+	rm -f runtime.txt
 	./pi_multi-thread $(points)
 	./pi_serial $(points)
 

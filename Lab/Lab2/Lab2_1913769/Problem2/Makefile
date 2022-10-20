@@ -20,3 +20,7 @@ all: pi_multi-thread pi_serial
 
 clear: 
 	rm -rf *.o
+
+clearall: 
+	rm -rf *.o pi_multi-thread pi_serial
+	

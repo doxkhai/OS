@@ -4,11 +4,16 @@
 #include <unistd.h>
 #include <time.h>
 #include "incircle.h"
-#define NUM_THREADS 4
+#define NUM_THREADS 2
+
+struct point {
+    int count;
+};
 
 long eachThreads;
-long innerPoints[NUM_THREADS];
+struct point innerPoints[NUM_THREADS];
 int thread_count = NUM_THREADS;
+long totalInnerpoints = 0;
 pthread_mutex_t mutex;
 void *generatePoint(void *thread_arg);
 
@@ -38,26 +43,25 @@ int main(int argc, char **argv)
     pthread_mutex_init(&mutex, NULL);
     for (i = 0; i < NUM_THREADS; i++)
     {
-        rc = pthread_create(&threads[i], NULL, generatePoint, (void *)i);
+        rc = pthread_create(&threads[i], NULL, generatePoint, (void *)&innerPoints[i]);
         if (rc)
         {
             printf("ERROR; return from pthread create() is %d\n", rc);
             exit(-1);
         }
     }
-    while(thread_count > 0);
+    // while(thread_count > 0);
     pthread_mutex_destroy(&mutex);
 
-    long totalInnerpoints = 0;
     for (i = 0; i < NUM_THREADS; i++)
     {
-        // rc = pthread_join(threads[i], NULL);
-        // if (rc)
-        // {
-        //     printf("ERROR; return from pthread join() is %d\n", rc);
-        //     exit(-1);
-        // }
-        totalInnerpoints += innerPoints[i];
+        rc = pthread_join(threads[i], NULL);
+        if (rc)
+        {
+            printf("ERROR; return from pthread join() is %d\n", rc);
+            exit(-1);
+        }
+        // totalInnerpoints += innerPoints[i];
     }
 
     double pi = 4 * totalInnerpoints / (double)nPoints;
@@ -73,18 +77,21 @@ int main(int argc, char **argv)
 void *generatePoint(void *thread_arg)
 {
     clock_t begin = clock();
-    long idx = (long)thread_arg;
-    for (long i = 0; i < eachThreads; i++)
+    struct point* points = (struct point*)thread_arg;
+    long each = eachThreads;
+    // printf("each: %ld\n",eachThreads);
+    for (long i = 0; i < each; i++)
     {
         if (inCircle(1, -1, 1))
         {
-            innerPoints[idx]++;
+            points->count++;
         }
     }
     pthread_mutex_lock(&mutex);
-    thread_count--;
+    // thread_count--;
+    totalInnerpoints += points->count;
     pthread_mutex_unlock(&mutex);
     clock_t end = clock();
-    printf("Thread #%ld: %fs\n", idx, (double)(end-begin)/CLOCKS_PER_SEC);
+    printf("Thread #: %fs\n", (double)(end-begin)/CLOCKS_PER_SEC);
     pthread_exit(NULL);
 }

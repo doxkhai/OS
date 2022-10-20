@@ -4,23 +4,18 @@
 #include <unistd.h>
 #include <time.h>
 #include "incircle.h"
-#define NUM_THREADS 2
+#define NUM_THREADS 1
 
-struct point {
-    int count;
-};
-
-long eachThreads;
-struct point innerPoints[NUM_THREADS];
-int thread_count = NUM_THREADS;
 long totalInnerpoints = 0;
 pthread_mutex_t mutex;
+
 void *generatePoint(void *thread_arg);
 
 int main(int argc, char **argv)
 {
     clock_t begin = clock();
     pthread_t threads[NUM_THREADS];
+
     int rc;
     long i;
 
@@ -38,20 +33,23 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    eachThreads = nPoints / NUM_THREADS; // calculate number of points each thread has to generate     // round up nPoints
+    // calculate number of points each thread has to generate
+    long eachThreads = nPoints / NUM_THREADS;
 
+    // pass to an array which value of each element is set equally, but with different addresses
+    long each[NUM_THREADS];
+    
     pthread_mutex_init(&mutex, NULL);
     for (i = 0; i < NUM_THREADS; i++)
     {
-        rc = pthread_create(&threads[i], NULL, generatePoint, (void *)&innerPoints[i]);
+        each[i] = eachThreads;
+        rc = pthread_create(&threads[i], NULL, generatePoint, (void *)each[i]);
         if (rc)
         {
             printf("ERROR; return from pthread create() is %d\n", rc);
             exit(-1);
         }
     }
-    // while(thread_count > 0);
-    pthread_mutex_destroy(&mutex);
 
     for (i = 0; i < NUM_THREADS; i++)
     {
@@ -61,37 +59,31 @@ int main(int argc, char **argv)
             printf("ERROR; return from pthread join() is %d\n", rc);
             exit(-1);
         }
-        // totalInnerpoints += innerPoints[i];
     }
+    pthread_mutex_destroy(&mutex);
 
     double pi = 4 * totalInnerpoints / (double)nPoints;
 
     clock_t end = clock();
     double runtime = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Multi-thread:\nRun time: %f\n", runtime);
-    printf("Total points: %ld\nIn circle Points: %ld\n", nPoints, totalInnerpoints);
-    printf("PI: %f\n\n", pi);
+
+    FILE *fptr = fopen("runtime.txt", "a");
+    fprintf(fptr, "Points: %ld\n Multi-thread: %f - %f\n", nPoints, pi, runtime);
+    fclose(fptr);
+
     pthread_exit(NULL);
 }
 
 void *generatePoint(void *thread_arg)
 {
-    clock_t begin = clock();
-    struct point* points = (struct point*)thread_arg;
-    long each = eachThreads;
-    // printf("each: %ld\n",eachThreads);
+    long each = (long)thread_arg;
+    long innerPoints = 0;
     for (long i = 0; i < each; i++)
-    {
         if (inCircle(1, -1, 1))
-        {
-            points->count++;
-        }
-    }
+            innerPoints++;
+
     pthread_mutex_lock(&mutex);
-    // thread_count--;
-    totalInnerpoints += points->count;
+    totalInnerpoints += innerPoints;
     pthread_mutex_unlock(&mutex);
-    clock_t end = clock();
-    printf("Thread #: %fs\n", (double)(end-begin)/CLOCKS_PER_SEC);
     pthread_exit(NULL);
 }

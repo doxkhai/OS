@@ -28,9 +28,10 @@ int main(int argc, char** argv) {
 
     clock_t end = clock();
     double runtime = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Serial:\nRun time: %f\n", runtime);
-    printf("Total points: %ld\nIn circle Points: %ld\n", nPoints, innerPoints);
-    printf("PI: %f\n", pi);
+   
+    FILE *fptr = fopen("runtime.txt", "a");
+    fprintf(fptr, "Points: %ld\n Serial: %f - %f\n", nPoints, pi, runtime);
+    fclose(fptr);
 
     return 0;
 }

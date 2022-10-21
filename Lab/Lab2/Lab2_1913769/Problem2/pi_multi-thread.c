@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <math.h>
 #include "gettime.h"
 
 struct thread_arg
@@ -31,22 +32,26 @@ int main(int argc, char **argv)
     }
 
     long numThreads;
-    if (nPoints > 1000000)
+    if (nPoints >= 1000000000)
         numThreads = 1000;
-    else if (nPoints > 100000)
+    else if (nPoints >= 100000000)
         numThreads = 100;
-    else if (numThreads > 10000)
+    else if (numThreads >= 10000000)
         numThreads = 10;
     else
         numThreads = 1;
 
     pthread_t threads[numThreads];
+
+    //Start timer
     struct timespec start, finish, delta;
     clock_gettime(CLOCK_REALTIME, &start);
 
     // calculate number of points each thread has to generate
     long long eachThreads = nPoints / numThreads;
+    long long lastThreads = nPoints % eachThreads;
     long long totalInnerpoints = 0;
+    
     struct thread_arg thread_args[numThreads];
 
     int rc;
@@ -55,6 +60,8 @@ int main(int argc, char **argv)
     {
         thread_args[i].eachThreads = eachThreads;
         thread_args[i].rand_state = rand();
+        if(i == numThreads - 1 && i != 0)
+            thread_args[i].eachThreads = lastThreads; 
         rc = pthread_create(&threads[i], NULL, generatePoint, (void *)&thread_args[i]);
         if (rc)
         {
@@ -76,6 +83,7 @@ int main(int argc, char **argv)
 
     double pi = 4 * totalInnerpoints / (double)nPoints;
 
+    //End timer
     clock_gettime(CLOCK_REALTIME, &finish);
     sub_timespec(start, finish, &delta);
 

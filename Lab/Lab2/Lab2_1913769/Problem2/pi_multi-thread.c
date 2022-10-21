@@ -2,22 +2,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <time.h>
-#include "incircle.h"
-#define NUM_THREADS 1
+#include "gettime.h"
 
-long totalInnerpoints = 0;
-pthread_mutex_t mutex;
+struct thread_arg
+{
+    long long eachThreads;
+    unsigned int rand_state;
+    long long innerPoints;
+};
 
 void *generatePoint(void *thread_arg);
 
 int main(int argc, char **argv)
 {
-    clock_t begin = clock();
-    pthread_t threads[NUM_THREADS];
-
-    int rc;
-    long i;
 
     if (argc != 2)
     {
@@ -25,7 +22,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    long nPoints = atoi(argv[1]);
+    long long nPoints = atoll(argv[1]);
 
     if (nPoints < 1)
     {
@@ -33,17 +30,32 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    // calculate number of points each thread has to generate
-    long eachThreads = nPoints / NUM_THREADS;
+    long numThreads;
+    if (nPoints > 1000000)
+        numThreads = 1000;
+    else if (nPoints > 100000)
+        numThreads = 100;
+    else if (numThreads > 10000)
+        numThreads = 10;
+    else
+        numThreads = 1;
 
-    // pass to an array which value of each element is set equally, but with different addresses
-    long each[NUM_THREADS];
-    
-    pthread_mutex_init(&mutex, NULL);
-    for (i = 0; i < NUM_THREADS; i++)
+    pthread_t threads[numThreads];
+    struct timespec start, finish, delta;
+    clock_gettime(CLOCK_REALTIME, &start);
+
+    // calculate number of points each thread has to generate
+    long long eachThreads = nPoints / numThreads;
+    long long totalInnerpoints = 0;
+    struct thread_arg thread_args[numThreads];
+
+    int rc;
+    long i;
+    for (i = 0; i < numThreads; i++)
     {
-        each[i] = eachThreads;
-        rc = pthread_create(&threads[i], NULL, generatePoint, (void *)each[i]);
+        thread_args[i].eachThreads = eachThreads;
+        thread_args[i].rand_state = rand();
+        rc = pthread_create(&threads[i], NULL, generatePoint, (void *)&thread_args[i]);
         if (rc)
         {
             printf("ERROR; return from pthread create() is %d\n", rc);
@@ -51,7 +63,7 @@ int main(int argc, char **argv)
         }
     }
 
-    for (i = 0; i < NUM_THREADS; i++)
+    for (i = 0; i < numThreads; i++)
     {
         rc = pthread_join(threads[i], NULL);
         if (rc)
@@ -59,16 +71,16 @@ int main(int argc, char **argv)
             printf("ERROR; return from pthread join() is %d\n", rc);
             exit(-1);
         }
+        totalInnerpoints += thread_args[i].innerPoints;
     }
-    pthread_mutex_destroy(&mutex);
 
     double pi = 4 * totalInnerpoints / (double)nPoints;
 
-    clock_t end = clock();
-    double runtime = (double)(end - begin) / CLOCKS_PER_SEC;
+    clock_gettime(CLOCK_REALTIME, &finish);
+    sub_timespec(start, finish, &delta);
 
     FILE *fptr = fopen("runtime.txt", "a");
-    fprintf(fptr, "Points: %ld\n Multi-thread: %f - %f\n", nPoints, pi, runtime);
+    fprintf(fptr, "Points: %lld\n Multi-thread, %ld threads: %f - %d.%lds\n", nPoints, numThreads, pi, (int)delta.tv_sec, delta.tv_nsec/10000);
     fclose(fptr);
 
     pthread_exit(NULL);
@@ -76,14 +88,23 @@ int main(int argc, char **argv)
 
 void *generatePoint(void *thread_arg)
 {
-    long each = (long)thread_arg;
-    long innerPoints = 0;
-    for (long i = 0; i < each; i++)
-        if (inCircle(1, -1, 1))
-            innerPoints++;
 
-    pthread_mutex_lock(&mutex);
-    totalInnerpoints += innerPoints;
-    pthread_mutex_unlock(&mutex);
+    struct thread_arg *data = (struct thread_arg *)thread_arg;
+    long long innerPoints = 0;
+    long long each = data->eachThreads;
+    unsigned int rand_state = data->rand_state;
+    long long i;
+    double x, y;
+    for (i = 0; i < each; i++)
+    {
+        x = rand_r(&rand_state) / ((double)RAND_MAX) * 2.0 - 1.0;
+        y = rand_r(&rand_state) / ((double)RAND_MAX) * 2.0 - 1.0;
+
+        if (x * x + y * y < 1)
+        {
+            innerPoints++;
+        }
+    }
+    data->innerPoints = innerPoints;
     pthread_exit(NULL);
 }

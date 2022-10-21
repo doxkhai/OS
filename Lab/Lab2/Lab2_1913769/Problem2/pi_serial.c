@@ -1,17 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
-#include "incircle.h"
+#include "gettime.h"
 
 int main(int argc, char** argv) {
-    clock_t begin = clock();
     if (argc != 2)
     {
         fprintf(stderr, "2 argc required!\n");
         return -1;
     }
 
-    long nPoints = atoi(argv[1]);
+    long long nPoints = atoll(argv[1]);
 
     if (nPoints < 1)
     {
@@ -19,18 +17,31 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    long innerPoints = 0;
-    for(long i = 0; i < nPoints; i++)
-        if(inCircle(1,-1,1))
+    struct timespec start, finish, delta;
+    clock_gettime(CLOCK_REALTIME, &start);
+ 
+    long long innerPoints = 0;
+    unsigned int rand_state = rand();
+    long long i;
+    double x,y;
+    for (i = 0; i < nPoints; i++)
+    {
+        x = rand_r(&rand_state) / ((double)RAND_MAX + 1) * 2.0 - 1.0;
+        y = rand_r(&rand_state) / ((double)RAND_MAX + 1) * 2.0 - 1.0;
+
+        if (x * x + y * y < 1)
+        {
             innerPoints++;
+        }
+    }
 
     double pi = 4 * innerPoints / (double)nPoints;
 
-    clock_t end = clock();
-    double runtime = (double)(end - begin) / CLOCKS_PER_SEC;
+    clock_gettime(CLOCK_REALTIME, &finish);
+    sub_timespec(start, finish, &delta);
    
     FILE *fptr = fopen("runtime.txt", "a");
-    fprintf(fptr, "Points: %ld\n Serial: %f - %f\n", nPoints, pi, runtime);
+    fprintf(fptr, "Points: %lld\n Serial: %f - %d.%lds\n", nPoints, pi, (int)delta.tv_sec, delta.tv_nsec/10000);
     fclose(fptr);
 
     return 0;

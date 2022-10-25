@@ -13,7 +13,7 @@ pi_serial.o: pi_serial.c gettime.h
 pi_serial: pi_serial.o gettime.o
 	gcc pi_serial.o gettime.o -o pi_serial -lm
 
-# usage: make all points=100000000
+# usage: make all points=1000000000
 all: pi_multi-thread pi_serial
 	rm -f runtime.txt
 	./pi_multi-thread $(points)

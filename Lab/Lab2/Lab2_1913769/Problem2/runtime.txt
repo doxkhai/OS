@@ -1,4 +1,4 @@
 Points: 1000000000
- Multi-thread, 1000 threads: 3.144215 - 2.90081s
+ Multi-thread, 1000 threads: 3.141625 - 2.94186s
 Points: 1000000000
- Serial: 3.141621 - 16.51644s
+ Serial: 3.141595 - 12.61585s

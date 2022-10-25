@@ -8,4 +8,4 @@ all: main.o readline.o
 	gcc main.o readline.o -o readline
 
 clean:
-	rm -f *.o readline
+	rm -f *.o 

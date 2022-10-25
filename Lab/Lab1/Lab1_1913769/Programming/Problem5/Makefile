@@ -8,7 +8,11 @@ all: main.o rating.o
 	g++ main.o rating.o -o main
 
 clear: 
-	rm -f *.o main 
+	rm -f *.o
 
 clear_txt:
 	rm -f finaloutput.txt resultFile1.txt resultFile2.txt
+
+clearall:
+	make clear
+	make clear_txt

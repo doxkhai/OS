@@ -49,10 +49,6 @@ int main(int argc, char **argv)
         printf("Shared memory error");
         return -1;
     }
-    else
-    {
-        printf("Shared memory: %d\n", shmid);
-    }
 
     pid_t child1 = fork();
     pid_t child2 = -2;
@@ -136,10 +132,10 @@ int main(int argc, char **argv)
 
         for (int i = 0; i < MAPSIZE; i++)
         {
-            if (map[i].MovieID != i + 1)
+            if (map[i].MovieID != i+1)
                 continue;
             float rating = map[i].ratings / map[i].count;
-            fprintf(rf, "%d\t%f\n", i + 1, rating);
+            fprintf(rf, "%d\t%f\n", map[i].MovieID, rating);
         }
 
         fclose(rf);
@@ -153,7 +149,6 @@ int main(int argc, char **argv)
             perror("shmctl");
             return 1;
         }
-        printf("exit\n");
     }
     
 

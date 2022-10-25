@@ -11,4 +11,4 @@ all: main.o readline.o factorial.o
 	gcc main.o readline.o factorial.o -o myfactorial
 
 clean:
-	rm -f *.o myfactorial
+	rm -f *.o 

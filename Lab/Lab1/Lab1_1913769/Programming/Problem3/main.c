@@ -11,6 +11,6 @@ int main(int argc, char *argv[])
 	scanf("%50[^\n]",str);
 
 	if(read_line(str)==0) printf("-1");
-	else printf("%d", factorial(atoi(str)));
+	else printf("%lld\n", factorial(atol(str)));
 	return 0;
 }

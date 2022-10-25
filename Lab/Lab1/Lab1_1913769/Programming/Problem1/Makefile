@@ -8,4 +8,4 @@ all: main.o factorial.o
 	gcc main.o factorial.o -o factorial
 
 clean: 
-	rm -f *.o factorial
+	rm -f *.o 

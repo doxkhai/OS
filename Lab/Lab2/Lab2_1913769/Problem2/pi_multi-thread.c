@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 
     if (argc != 2)
     {
-        fprintf(stderr, "2 argc required!\n");
+        fprintf(stderr, "usage: ./pi_multi-thread <number of points>\n");
         return -1;
     }
 
@@ -41,7 +41,6 @@ int main(int argc, char **argv)
     else
         numThreads = 1;
 
-    pthread_t threads[numThreads];
 
     //Start timer
     struct timespec start, finish, delta;
@@ -49,9 +48,10 @@ int main(int argc, char **argv)
 
     // calculate number of points each thread has to generate
     long long eachThreads = nPoints / numThreads;
-    long long lastThreads = nPoints % eachThreads;
+    long long lastThreads = nPoints % numThreads;
     long long totalInnerpoints = 0;
-    
+
+    pthread_t threads[numThreads];
     struct thread_arg thread_args[numThreads];
 
     int rc;
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
         thread_args[i].eachThreads = eachThreads;
         thread_args[i].rand_state = rand();
         if(i == numThreads - 1 && i != 0)
-            thread_args[i].eachThreads = lastThreads; 
+            thread_args[i].eachThreads += lastThreads; 
         rc = pthread_create(&threads[i], NULL, generatePoint, (void *)&thread_args[i]);
         if (rc)
         {

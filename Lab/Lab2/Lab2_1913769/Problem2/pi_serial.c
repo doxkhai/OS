@@ -5,7 +5,7 @@
 int main(int argc, char** argv) {
     if (argc != 2)
     {
-        fprintf(stderr, "2 argc required!\n");
+        fprintf(stderr, "usage: ./pi_serial <number of points>\n");
         return -1;
     }
 

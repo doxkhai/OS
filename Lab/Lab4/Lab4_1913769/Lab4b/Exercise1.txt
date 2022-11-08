@@ -1,0 +1,40 @@
+First-fit:
+    Process Size    Block
+    P1      115kb   B1 - 185kb left       
+    P2      500kb   B2 - 100kb left
+    P3      358kb   B5 - 392kb left
+    P4      200kb   B3 - 150kb left
+    P5      375kb   B5 - 17kb left
+
+Best-fit:
+    Process Size    Block
+    P1      115kb   B6 - 10kb left       
+    P2      500kb   B2 - 100kb left
+    P3      358kb   B5 - 392kb left
+    P4      200kb   B4 - 0kb left
+    P5      375kb   B5 - 17kb left
+
+Worst-fit:
+    Process Size    Block
+    P1      115kb   B5 - 635kb left       
+    P2      500kb   B5 - 135kb left
+    P3      358kb   B2 - 242kb left
+    P4      200kb   B3 - 150kb left
+    P5      375kb   Not Allocated (not enough memory)
+
+Holes:
+    Block   Original    First-fit   Best-fit    Worst-fit
+    B1      300         185         300         300
+    B2      600         100         100         242
+    B3      350         150         350         150
+    B4      200         200         0           200
+    B5      750         17          17          135
+    B6      125         125         10          125
+
+
+Ranking:
+    Best-fit > First-fit > Worst-fit
+
+    - Best-fit manage to allocate enough memory without using all of the memory blocks and leaves very little holes, or almost no hole at all.
+    - First-fit leaves average size holes, and cannot make the best out of the whole Memory block.
+    - Worst-fit leaves a process un allocated.

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <stdio.h>
+#include <stdint.h>
 
 void *mem_pool = NULL;
 

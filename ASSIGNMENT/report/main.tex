@@ -1,0 +1,676 @@
+\documentclass[10pt]{article}
+\usepackage{a4wide,amssymb,epsfig,latexsym,multicol,array,hhline,fancyhdr}
+\usepackage{vntex}
+\usepackage{amsmath}
+\usepackage{lastpage}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{graphicx}							% Standard graphics package
+\usepackage{array}
+\usepackage{tabularx, caption}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{graphics}
+\usepackage{setspace}
+\usepackage{epsfig}
+\usepackage{tikz}
+\usetikzlibrary{arrows,snakes,backgrounds}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{longfbox}
+\usepackage[left=2.5cm, right=2.5cm, top=2.50cm, bottom=2.50cm]{geometry}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+%\usepackage{pstcol} 								% PSTricks with the standard color package
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lime(web)(x11green)}{rgb}{0.0, 1.0, 0.0}
+\definecolor{ruddybrown}{rgb}{0.73, 0.4, 0.16}
+\definecolor{tangerine}{rgb}{0.95, 0.52, 0.0}
+\definecolor{tropicalrainforest}{rgb}{0.0, 0.46, 0.37}
+\lstdefinestyle{CStyle}{
+    %backgroundcolor=\color{backColour},  
+    librarystyle=\color{ruddybrown},
+    %identifierstyle=\color{ruddybrown},
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{tangerine},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{tropicalrainforest},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\newtheorem{theorem}{{\bf Theorem}}
+\newtheorem{property}{{\bf Property}}
+\newtheorem{proposition}{{\bf Proposition}}
+\newtheorem{corollary}[proposition]{{\bf Corollary}}
+\newtheorem{lemma}[proposition]{{\bf Lemma}}
+
+\AtBeginDocument{\renewcommand*\contentsname{Contents}}
+\AtBeginDocument{\renewcommand*\refname{References}}
+%\usepackage{fancyhdr}
+\setlength{\headheight}{20pt}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(25,15)(0,0)
+    \put(0,-8){\includegraphics[width=8mm, height=8mm]{Images/hcmut.png}}
+    %\put(0,-8){\epsfig{width=10mm,figure=hcmut.eps}}
+   \end{picture}&
+	%\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
+	\begin{tabular}{l}
+		\textbf{\bf \ttfamily HCM University of Technology}\\
+		\textbf{\bf \ttfamily Faculty of Computer Science and Engineering}
+	\end{tabular} 	
+ \end{tabular}
+}
+\fancyhead[R]{
+	\begin{tabular}{l}
+		\tiny \bf \\
+		\tiny \bf 
+	\end{tabular}  }
+\fancyfoot{} % clear all footer fields
+\fancyfoot[L]{\scriptsize \ttfamily Assignment Operating System 2022 - 2023}
+\fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+
+%%%
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{3}
+\makeatletter
+\newcounter {subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\newcommand*\l@subsubsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+VIETNAM NATIONAL UNIVERSITY HO CHI MINH CITY \\
+HCM UNIVERSITY OF TECHNOLOGY \\
+FACULTY OF COMPUTER SCIENCE AND ENGINEERING 
+\end{center}
+
+\vspace{1cm}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=4cm]{Images/hcmut.png}
+\end{center}
+\end{figure}
+
+\vspace{1cm}
+
+
+\begin{center}
+\begin{tabular}{c}
+\multicolumn{1}{l}{\textbf{{\Large OPERATING SYSTEM (CO2017)}}}\\
+~~\\
+\hline
+\\
+\multicolumn{1}{l}{\textbf{{\Large Assignment}}}\\
+\\
+\textbf{{\Huge Simple Operating System}}\\\\
+
+\\
+\hline
+\end{tabular}
+\end{center}
+\\\\
+\begin{table}[h]
+\begin{tabular}{rrl}
+\hspace{5cm}
+			& Group: & Do Chi Khai - 1913769\\
+            & & Anh Khoa - \\
+
+\end{tabular}
+\end{table}
+\vspace{5cm}
+\begin{center}
+{\footnotesize Ho Chi Minh City, 11/2022}
+\end{center}
+\end{titlepage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\baselinestretch}{1.25}\normalsize
+\large{\\
+\textbf{\Large{Member list and contribution:}}\\
+\hspace{3cm}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{No} & \textbf{Name} & \textbf{ID Number} & \textbf{Contribution}\\
+\hline 
+%%%%%Student 1%%%%%%%%%%%
+{1} & {Do Chi Khai} & {1913769} & {}\\
+
+\hline
+%%%%%Student 4%%%%%%%%%%%
+{2} & {Anh Khoa} & {} & {}\\
+\hline
+\end{tabular}
+\end{center}
+}
+\newpage
+
+%\thispagestyle{empty}
+
+\newpage
+\renewcommand{\baselinestretch}{1.50}\Large
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\large
+% \section{Introducing}
+% \tab[0.5cm]The assignment is about simulating a simple operating system to help student understand the fundamental concepts of scheduling, synchronization and memory management. Figure 1 shows the overall architecture of the “operating system” we are going to implement. Generally, the OS has to manage two “virtual” resources: CPU(s) and RAM using two core components:
+% \begin{itemize}
+%     \item Scheduler (and Dispatcher): determines with process is allowed to run on which CPU.
+%     \item Virtual memory engine (VME): isolates the memory space of each process from other. The physical RAM is shared by multiple processes but each process do not know the existence of other. This is done by letting each process has its own virtual memory space and the Virtual memory engine will map and translate the virtual addresses provided by processes to corresponding physical addresses.
+%     \begin{figure}[h!]
+%         \centering
+%         \includegraphics[width=17cm]{Images/system.png}
+%         \caption{The model of this assignment}
+%     \end{figure}
+%     \item Through those modules, The OS allows mutliple processes created by users to share and use the “virtual” computing resources. Therefore, in this assignment, we focus on implementing scheduler/dispatcher and virtual memory engine.
+% \end{itemize}
+
+
+\section{Scheduling}
+\subsection{Question - Multi-level Queue}
+\textbf{Question}: What is the advantage of using priority queue in comparison with other scheduling algorithms you have learned? \\
+\textbf{Answer}:\\
+\tab[0.5cm] Giải thuật MLQ (Multi-level queue) sử dụng cơ chế chia các process với các độ ưu tiên khác nhau vào mỗi ready\_queue tương ứng, với ready\_queue có độ ưu tiên thấp nhất là MAX\_PRIO:
+\begin{itemize}
+    \item \textit{mlq\_ready\_queue}: một danh sách (array) với phần tử là các queue với độ ưu tiên từ cao đến thấp là 0 -> MAX\_PRIO.
+    \item \textit{mlq\_ready\_queue[prio]}: hàng đợi với độ ưu tiên của từng phần tử là prio.
+    \item \textit{curr\_slot}: một array lưu các slot thực thi còn lại của mỗi hàng đợi, với slot = MAX\_PRIO - prio.
+\end{itemize}
+\tab[0.5cm] Từ đó ta có thể thấy ưu điểm của giải thuật MLQ đó là:
+\begin{itemize}
+    \item Sử dụng cơ chế slot, tránh được starvation, nhưng đồng thời vẫn đảm bảo được các process có độ ưu tiên cao hơn sẽ được thực thi thường xuyên hơn.
+    \item Với việc mỗi process được gán cố định vào một hàng đợi nhất định, việc enqueue cũng như dequeue sẽ tốn ít chi phí hơn.
+\end{itemize}
+
+\subsection{Implementation}
+\subsubsection{Enqueue và Dequeue}
+\begin{itemize}
+    \item Với enqueue, ta kiểm tra xem queue đã đạt giới hạn chưa, nếu chưa, ta thêm vào vị trí cuối cùng.
+    \item Với dequeue, trước tiên kiểm tra xem queue có rỗng hay không, rồi ta lấy ra phần tử đầu tiên của queue, sau đó cập nhật lại vị trí của từng phần tử.
+\end{itemize}
+\textbf{Hiện thực:}
+\begin{lstlisting}
+    void enqueue(struct queue_t * q, struct pcb_t * proc) {
+	/* TODO: put a new process to queue [q] */	
+	if(q->size < MAX_QUEUE_SIZE) {
+		q->proc[q->size] = proc;
+		q->size++;
+	}
+}
+
+struct pcb_t * dequeue(struct queue_t * q) {
+	/* TODO: return a pcb whose prioprity is the highest
+	 * in the queue [q] and remember to remove it from q
+	 * */
+	if(!empty(q)) {
+		struct pcb_t *proc = q->proc[0];
+		for(int i = 0; i < q->size-1; i++) {
+			q->proc[i] = q->proc[i+1];
+		}
+		q->proc[q->size-1] = NULL;
+		q->size--;
+		return proc;
+	}
+	return NULL;
+}
+\end{lstlisting}
+
+\subsubsection{Get process}
+
+\subsection{Gantt Diagram}
+\begin{figure}
+    \centering
+    \includegraphics{}
+    \caption{Caption}
+\end{figure}
+
+\section{Memory}
+\subsection{Question - Segmentation with paging}
+\textbf{Question}: What is the advantage and disadvantage of segmentation with paging? \\
+\textbf{Answer}: \\
+\tab[0.5cm] Ưu điểm của giải thuật:
+\begin{itemize}
+    \item Tiết kiệm bộ nhớ, sử dụng bộ nhớ hiệu quả.
+    \item Mang các ưu điểm của giải thuật phân trang: đơn giản việc cấp phắt vùng nhớ và khắc phục được phân mảnh ngoại.
+    \item Giải quyết vấn đề phân mảnh ngoại của giải thuật phân đoạn bằng cách phân trang trong mỗi đoạn.
+\end{itemize} 
+\tab[0.5cm] Nhược điểm của giải thuật:
+\begin{itemize}
+    \item Phân mảnh nội của giải thuật phân trang vẫn còn.
+\end{itemize}
+
+\subsection{Result - Status of RAM}
+\textbf{Requirement:} Show the status of RAM after each memory allocation and deallocation function call.\\
+\tab[0.5cm] Dưới đây là kết quả của quá trình ghi log sau mỗi lệnh allocation và deallocation trong chương trình, cụ thể ghi lại trạng thái của RAM trong chương trình ở mỗi bước.\\ \\
+\textbf{\textit{Test 0:}} \\
+--------------------Allocation-------------------- \\
+000: 00000-003ff - PID: 01 (idx 000, nxt: 001) \\
+001: 00400-007ff - PID: 01 (idx 001, nxt: 002)\\ 
+002: 00800-00bff - PID: 01 (idx 002, nxt: 003)\\
+003: 00c00-00fff - PID: 01 (idx 003, nxt: 004)\\
+004: 01000-013ff - PID: 01 (idx 004, nxt: 005)\\
+005: 01400-017ff - PID: 01 (idx 005, nxt: 006)\\
+006: 01800-01bff - PID: 01 (idx 006, nxt: 007)\\
+007: 01c00-01fff - PID: 01 (idx 007, nxt: 008)\\
+008: 02000-023ff - PID: 01 (idx 008, nxt: 009)\\
+009: 02400-027ff - PID: 01 (idx 009, nxt: 010)\\
+010: 02800-02bff - PID: 01 (idx 010, nxt: 011)\\
+011: 02c00-02fff - PID: 01 (idx 011, nxt: 012)\\
+012: 03000-033ff - PID: 01 (idx 012, nxt: 013)\\
+013: 03400-037ff - PID: 01 (idx 013, nxt: -01)\\
+--------------------Allocation-------------------- \\
+000: 00000-003ff - PID: 01 (idx 000, nxt: 001)\\
+001: 00400-007ff - PID: 01 (idx 001, nxt: 002)\\
+002: 00800-00bff - PID: 01 (idx 002, nxt: 003)\\
+003: 00c00-00fff - PID: 01 (idx 003, nxt: 004)\\
+004: 01000-013ff - PID: 01 (idx 004, nxt: 005)\\
+005: 01400-017ff - PID: 01 (idx 005, nxt: 006)\\
+006: 01800-01bff - PID: 01 (idx 006, nxt: 007)\\
+007: 01c00-01fff - PID: 01 (idx 007, nxt: 008)\\
+008: 02000-023ff - PID: 01 (idx 008, nxt: 009)\\
+009: 02400-027ff - PID: 01 (idx 009, nxt: 010)\\
+010: 02800-02bff - PID: 01 (idx 010, nxt: 011)\\
+011: 02c00-02fff - PID: 01 (idx 011, nxt: 012)\\
+012: 03000-033ff - PID: 01 (idx 012, nxt: 013)\\
+013: 03400-037ff - PID: 01 (idx 013, nxt: -01)\\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+--------------------Deallocation-------------------- \\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+--------------------Allocation-------------------- \\
+000: 00000-003ff - PID: 01 (idx 000, nxt: 001)\\
+001: 00400-007ff - PID: 01 (idx 001, nxt: -01)\\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+--------------------Allocation-------------------- \\
+000: 00000-003ff - PID: 01 (idx 000, nxt: 001)\\
+001: 00400-007ff - PID: 01 (idx 001, nxt: -01)\\
+002: 00800-00bff - PID: 01 (idx 000, nxt: 003)\\
+003: 00c00-00fff - PID: 01 (idx 001, nxt: 004)\\
+004: 01000-013ff - PID: 01 (idx 002, nxt: 005)\\
+005: 01400-017ff - PID: 01 (idx 003, nxt: 006)\\
+006: 01800-01bff - PID: 01 (idx 004, nxt: -01)\\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+\textbf{\textit{Test 1:}}\\
+--------------------Allocation-------------------- \\
+000: 00000-003ff - PID: 01 (idx 000, nxt: 001)\\
+001: 00400-007ff - PID: 01 (idx 001, nxt: 002)\\
+002: 00800-00bff - PID: 01 (idx 002, nxt: 003)\\
+003: 00c00-00fff - PID: 01 (idx 003, nxt: 004)\\
+004: 01000-013ff - PID: 01 (idx 004, nxt: 005)\\
+005: 01400-017ff - PID: 01 (idx 005, nxt: 006)\\
+006: 01800-01bff - PID: 01 (idx 006, nxt: 007)\\
+007: 01c00-01fff - PID: 01 (idx 007, nxt: 008)\\
+008: 02000-023ff - PID: 01 (idx 008, nxt: 009)\\
+009: 02400-027ff - PID: 01 (idx 009, nxt: 010)\\
+010: 02800-02bff - PID: 01 (idx 010, nxt: 011)\\
+011: 02c00-02fff - PID: 01 (idx 011, nxt: 012)\\
+012: 03000-033ff - PID: 01 (idx 012, nxt: 013)\\
+013: 03400-037ff - PID: 01 (idx 013, nxt: -01)\\
+--------------------Allocation-------------------- \\
+000: 00000-003ff - PID: 01 (idx 000, nxt: 001)\\
+001: 00400-007ff - PID: 01 (idx 001, nxt: 002)\\
+002: 00800-00bff - PID: 01 (idx 002, nxt: 003)\\
+003: 00c00-00fff - PID: 01 (idx 003, nxt: 004)\\
+004: 01000-013ff - PID: 01 (idx 004, nxt: 005)\\
+005: 01400-017ff - PID: 01 (idx 005, nxt: 006)\\
+006: 01800-01bff - PID: 01 (idx 006, nxt: 007)\\
+007: 01c00-01fff - PID: 01 (idx 007, nxt: 008)\\
+008: 02000-023ff - PID: 01 (idx 008, nxt: 009)\\
+009: 02400-027ff - PID: 01 (idx 009, nxt: 010)\\
+010: 02800-02bff - PID: 01 (idx 010, nxt: 011)\\
+011: 02c00-02fff - PID: 01 (idx 011, nxt: 012)\\
+012: 03000-033ff - PID: 01 (idx 012, nxt: 013)\\
+013: 03400-037ff - PID: 01 (idx 013, nxt: -01)\\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+--------------------Deallocation-------------------- \\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+--------------------Allocation-------------------- \\
+000: 00000-003ff - PID: 01 (idx 000, nxt: 001)\\
+001: 00400-007ff - PID: 01 (idx 001, nxt: -01)\\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+--------------------Allocation-------------------- \\
+000: 00000-003ff - PID: 01 (idx 000, nxt: 001)\\
+001: 00400-007ff - PID: 01 (idx 001, nxt: -01)\\
+002: 00800-00bff - PID: 01 (idx 000, nxt: 003)\\
+003: 00c00-00fff - PID: 01 (idx 001, nxt: 004)\\
+004: 01000-013ff - PID: 01 (idx 002, nxt: 005)\\
+005: 01400-017ff - PID: 01 (idx 003, nxt: 006)\\
+006: 01800-01bff - PID: 01 (idx 004, nxt: -01)\\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+--------------------Deallocation-------------------- \\
+002: 00800-00bff - PID: 01 (idx 000, nxt: 003)\\
+003: 00c00-00fff - PID: 01 (idx 001, nxt: 004)\\
+004: 01000-013ff - PID: 01 (idx 002, nxt: 005)\\
+005: 01400-017ff - PID: 01 (idx 003, nxt: 006)\\
+006: 01800-01bff - PID: 01 (idx 004, nxt: -01)\\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+--------------------Deallocation-------------------- \\
+014: 03800-03bff - PID: 01 (idx 000, nxt: 015)\\
+015: 03c00-03fff - PID: 01 (idx 001, nxt: -01)\\
+--------------------Deallocation-------------------- \\
+
+\subsection{Implementation}
+\subsubsection{Tìm bảng phân trang từ segment}
+\tab[0.5cm] Trong asignment này, mỗi địa chỉ được biểu diễn bởi 20 bits, trong đó 5 bits đầu tiên là segment, 5 bits tiếp theo là page, và 10 bits cuối cùng là offset. \\
+\tab[0.5cm] Chức năng này nhận vào 5 bits segment index và bảng phân đoạn seg\_table, cần tìm ra bảng phân trang res của segment tương ứng trong bảng phân đoạn nói trên. \\
+\tab[0.5cm] Do bảng phân đoạn seg\_table là một danh sách gồm các phần tử u có cấu trúc (v\_index, trans\_table\_t), trong đó v\_index là 5 bits segment của phần tử u và trans\_table\_t là bảng phân trang tương ứng của segment đó. Vì vậy để tìm được res, ta chỉ cần duyệt trên bảng phân đoạn này, phần tử u nào có v\_index bằng index cần tìm, ta trả về trans\_table tương ứng. \\
+\tab[0.5cm] Dưới đây là phần hiện thực cho chức năng trên.
+\begin{lstlisting}
+static struct trans_table_t * get_trans_table(
+        addr_t index,   // Segment level index
+        const struct seg_table_t * seg_table) { // first level table
+    if (seg_table==NULL) return NULL;
+    
+    int i;
+    
+    for (i = 0; i < seg_table->size; i++) {
+        if (seg_table->table[i].v_index==index) return seg_table->table[i].next_lv;
+    }
+
+    return NULL;
+}
+\end{lstlisting}
+
+\subsubsection{Ánh xạ địa chỉ ảo thành địa chỉ vật lý}
+\tab[0.5cm] Do mỗi địa chỉ gồm 20 bits với cách tổ chức như nói ở trên, do đó để tạo được địa chỉ vật lý, ta lấy 10 bits đầu (segment và page) nối với 10 bits cuối (offset). Mỗi trans\_table\_t lưu các phần tử có p\_index là 10 bits đầu đó. do đó để tạo được địa chỉ vật lý, ta chỉ cần dịch trái 10 bits đó đi 10 bits offset rồi or (|) hai chuỗi này lại. \\
+\tab[0.5cm] Dưới đây là phần hiện thực của chức năng trên. 
+\begin{lstlisting}
+    static int translate(
+        addr_t virtual_addr,    // Given virtual address
+        addr_t * physical_addr, // Physical address to be returned
+        const struct pcb_t * proc) {  // Process uses given virtual address
+
+    /* Offset of the virtual address */
+    addr_t offset = get_offset(virtual_addr);
+    /* The first layer index */
+    addr_t first_lv = get_first_lv(virtual_addr);
+    /* The second layer index */
+    addr_t second_lv = get_second_lv(virtual_addr);
+    
+    /* Search in the first level */
+    struct trans_table_t * trans_table = NULL;
+    trans_table = get_trans_table(first_lv, proc->seg_table);
+    if (trans_table == NULL) {
+        return 0;
+    }
+
+    int i;
+    for (i = 0; i < trans_table->size; i++) {
+        if (trans_table->table[i].v_index == second_lv) {
+            *physical_addr = ((offset) | ((trans_table->table[i].p_index)<<OFFSET_LEN));
+            return 1;
+        }
+    }
+    return 0;   
+}
+
+\end{lstlisting}
+
+\subsubsection{Cấp phát memory}
+\tab[0.5cm] Các bước thực hiện 
+\begin{itemize}
+    \item Kiểm tra xem memory có sẵn sàng cả trên bộ nhớ vật lý và bộ nhớ luận lý hay không.
+    \item Duyệt trên vùng nhớ vật lý, tìm các trang trống, gán trang này được process sử dụng.
+    \item Trên vùng nhớ luận lý, dựa trên địa chỉ cấp phát, tính từ địa chỉ bắt đầu và vị trí thứ tự trang cấp phát, ta tìm được các segment, page của nó. Từ đó cập nhật các bảng phân trang, phân đoạn tương ứng
+\end{itemize}
+\tab[0.5cm] Dưới đây là phần thực hiện chi tiết:\\
+
+\begin{lstlisting}
+    addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
+    pthread_mutex_lock(&mem_lock);
+    addr_t ret_mem = 0;
+
+    if ((proc->seg_table!=NULL) && (proc->seg_table->size)>=(1 << FIRST_LV_LEN)){
+        proc->seg_table->size=0;
+    }
+    /* TODO: Allocate [size] byte in the memory for the
+     * process [proc] and save the address of the first
+     * byte in the allocated memory region to [ret_mem].
+     * */
+    
+    uint32_t num_pages = (size+PAGE_SIZE-1) / PAGE_SIZE; // Number of pages we will use
+    int mem_avail = 0; // We could allocate new memory region or not?
+    /* First check if the amount of free memory in
+     * virtual address space and physical address space is
+     * large enough to represent the amount of required 
+     * memory. If so, set 1 to [mem_avail].
+     * */
+    int pages_avail=0;
+    for (int i=0; i<NUM_PAGES; ++i) pages_avail+=(_mem_stat[i].proc==0);
+    mem_avail = (pages_avail>=num_pages) && (proc->bp + num_pages*PAGE_SIZE<RAM_SIZE) ? 1 : 0;
+    
+    if (mem_avail) {
+        /* We could allocate new memory region to the process */
+        ret_mem = proc->bp;
+        addr_t vir_add = ret_mem;
+        proc->bp += num_pages * PAGE_SIZE;
+
+        int pre_page=-1;
+        int index_cnt=0;
+        for (int i=0; i<NUM_PAGES && num_pages>0; ++i) if (_mem_stat[i].proc==0){
+            _mem_stat[i].proc=proc->pid;
+            _mem_stat[i].index=index_cnt++;
+            --num_pages;
+            if (pre_page!=-1){
+                _mem_stat[pre_page].next=i;
+            }
+            pre_page=i;
+
+            addr_t first_lv = get_first_lv(vir_add);
+            addr_t second_lv = get_second_lv(vir_add);
+    
+            struct trans_table_t * trans_table = NULL;
+            trans_table = get_trans_table(first_lv, proc->seg_table);
+            if (trans_table == NULL) {
+                if (proc->seg_table==NULL){
+                    proc->seg_table = (struct seg_table_t *) malloc(sizeof(struct seg_table_t *));
+                    proc->seg_table->size=0; 
+                }
+                int idx = proc->seg_table->size;
+                proc->seg_table->table[idx].v_index=first_lv;
+    
+                trans_table = proc->seg_table->table[idx].next_lv
+                = (struct  trans_table_t *) malloc(sizeof(struct  trans_table_t));
+                trans_table->size=0;
+
+                proc->seg_table->size++;
+            }
+            trans_table->size++;
+            trans_table->table[trans_table->size-1].v_index=second_lv;
+            trans_table->table[trans_table->size-1].p_index=i;
+            vir_add+= (PAGE_SIZE);
+        }
+        _mem_stat[pre_page].next=-1;
+    }
+    pthread_mutex_unlock(&mem_lock);
+
+    return ret_mem;
+}
+
+\end{lstlisting}
+
+\subsubsection{Thu hồi memory}
+\subsubsubsection{Thu hồi địa chỉ vật lý}
+\tab[0.5cm] Chuyển địa chỉ luận lý từ process thành vật lý, sau đó dựa trên giá trị next của mem, ta cập nhật lại chuỗi địa chỉ tương ứng đó\\
+\begin{lstlisting}
+    int free_mem(addr_t address, struct pcb_t * proc) {
+    pthread_mutex_lock(&mem_lock);
+    
+    addr_t phy_add = 0;
+    addr_t vir_add = address;
+    
+    if (!translate(address, &phy_add, proc)) return 1;
+    
+    int num_pages=0;
+    addr_t index=(phy_add>>OFFSET_LEN);
+    
+    while(1==1){
+        ++num_pages;
+        _mem_stat[index].proc=0;// clear physical page in memory
+        
+
+        //clear virtual page in process
+        addr_t vir_seg = get_first_lv(vir_add);
+        addr_t vir_page = get_second_lv(vir_add);
+        struct trans_table_t * trans_table = get_trans_table(vir_seg, proc->seg_table);
+        if (trans_table==NULL){
+            continue;
+        }
+        int j;
+        for (j=0; j<trans_table->size; ++j){
+            if (trans_table->table[j].v_index==vir_page){
+                int last = --trans_table->size;
+                trans_table->table[j] = trans_table->table[last];
+                break;
+            }
+        }
+        if (trans_table->size==0){
+            remove_entries(vir_seg, proc->seg_table);
+        }
+
+        if (_mem_stat[index].next==-1) break;
+
+        //move to next page
+        index=_mem_stat[index].next;
+        vir_add+=PAGE_SIZE;
+    }
+    pthread_mutex_unlock(&mem_lock);
+
+    //update break pointer 
+    addr_t v_segment_page = address >> OFFSET_LEN;
+    if (v_segment_page + num_pages*PAGE_SIZE == proc->bp){
+        free_mem_bp(proc);
+    }
+    return 0;
+}
+
+\end{lstlisting}
+
+\subsubsubsection{Cập nhật địa chỉ luận lý}
+\tab[0.5cm] Dựa trên số trang đã xóa trên block của địa chỉ vật lý, ta tìm lần lượt các trang trên địa chỉ luận lý, dựa trên địa chỉ, ta tìm được segment, page tương ứng. Sau đó cập nhật lại bảng phân trang, sau quá trình cập nhật, nếu bảng trống thì xóa bảng này trong segment đi. \\
+\begin{lstlisting}
+    void remove_entries(addr_t vir_seg, struct seg_table_t * seg_table){
+    if (seg_table==NULL) return;
+
+    int i;
+
+    for (i=0; i<seg_table->size; ++i){
+        if (seg_table->table[i].v_index == vir_seg){
+            int idx = seg_table->size-1;
+            seg_table->table[i] =seg_table->table[idx];
+            seg_table->table[idx].v_index=0;
+            free(seg_table->table[idx].next_lv);
+            seg_table->size--;
+            return ;
+        }
+    }
+}
+
+\end{lstlisting}
+
+\subsubsubsection{Cập nhật break point}
+\tab[0.5cm]Chỉ thực hiện khi block cuối cùng trên địa chỉ luận lý được xóa, sau đó từ đó duyệt lần lượt ngược lại các trang, đến khi đến trang đang được sử dụng thì dừng. \\
+\begin{lstlisting}
+    void free_mem_bp(struct pcb_t * proc){
+    while (proc->bp>=PAGE_SIZE){
+        addr_t last_addr = proc->bp - PAGE_SIZE;
+        addr_t last_segment = get_first_lv(last_addr);
+        addr_t last_page = get_second_lv(last_addr);
+        struct trans_table_t * trans_table = get_trans_table(last_segment, proc->seg_table);
+        if (trans_table == NULL) return ;
+        while (last_page>=0){
+            int i;
+            for (i=0; i<trans_table->size; ++i){
+                if (trans_table->table[i].v_index == last_page){
+                    proc->bp-=PAGE_SIZE;
+                    last_page--;
+                    break;
+                }
+            }
+            if (i==trans_table->size) break;
+        }
+        if (last_page>=0) break;
+    }
+}
+
+\end{lstlisting}
+
+\section{Overall}
+\subsection{Question}
+\textbf{Question}: What will happen if the synchronization is not handled in your simple OS? Illustrate by example the problem of your simple OS if you have any? \\
+\textbf{Answer:}  \\
+
+\newpage
+\section{References}
+\normalsize
+\tab[0.19cm] [1]  \\
+\end{document} 

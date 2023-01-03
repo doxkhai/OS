@@ -16,10 +16,10 @@ int main()
       return -1;
    };
 
-
+   // pthread_seqlock_rdlock(&lock);
+   pthread_seqlock_rdlock(&lock);
    pthread_seqlock_wrlock(&lock);
    val++;
-   pthread_seqlock_rdlock(&lock);
    printf("%d\n", val);
    
    if (pthread_seqlock_rdunlock(&lock) == 0)

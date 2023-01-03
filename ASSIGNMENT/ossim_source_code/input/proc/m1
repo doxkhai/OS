@@ -1,0 +1,14 @@
+1 13
+alloc 1020 4
+free 4
+alloc 1020 5
+free 4
+alloc 5203 0
+write 135 0 1024
+alloc 1023 1
+free 0
+alloc 7860 2
+write 14 2 7000
+free 1
+alloc 3500 3
+write 25 3 1880

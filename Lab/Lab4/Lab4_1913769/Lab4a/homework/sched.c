@@ -132,7 +132,5 @@ int main()
 	// struct pcb_t *proc = de_queue(&ready_queue);
 	// en_priority_queue(&ready_queue, proc);
 
-	printf("ALL DONE!\n");
-
 	pthread_exit(NULL);
 }
